@@ -5,12 +5,18 @@ $pesan = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nama_barang = trim($_POST['nama_barang'] ?? '');
     $kategori    = trim($_POST['kategori'] ?? '');
+    $jumlah      = trim($_POST['jumlah'] ?? '');
+    $harga       = trim($_POST['harga'] ?? '');
+    $lokasi      = trim($_POST['lokasi'] ?? '');
 
     if (!empty($nama_barang) && !empty($kategori)) {
-        $stmt = $pdo->prepare("INSERT INTO barang (nama_barang, kategori) VALUES (:nama_barang, :kategori)");
+        $stmt = $pdo->prepare("INSERT INTO barang (nama_barang, kategori, jumlah, harga, lokasi) VALUES (:nama_barang, :kategori, :jumlah, :harga, :lokasi)");
         $stmt->execute([
             ':nama_barang' => $nama_barang,
-            ':kategori'    => $kategori
+            ':kategori'    => $kategori,
+            ':jumlah'      => $jumlah,
+            ':harga'       => $harga,
+            ':lokasi'      => $lokasi
         ]);
 
         header("Location: index.php?pesan=tambah_sukses");
@@ -45,6 +51,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="mb-3">
             <label class="form-label">Kategori</label>
             <input type="text" name="kategori" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Jumlah</label>
+            <input type="number" name="jumlah" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Harga</label>
+            <input type="number" name="harga" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Lokasi</label>
+            <input type="text" name="lokasi" class="form-control" required>
         </div>
         <button type="submit" class="btn btn-success">Simpan</button>
         <a href="index.php" class="btn btn-secondary">Kembali</a>

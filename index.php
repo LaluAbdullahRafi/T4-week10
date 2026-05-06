@@ -39,6 +39,9 @@ $pesan = $_GET['pesan'] ?? '';
                 <th width="60">No</th>
                 <th>Nama Barang</th>
                 <th>Kategori</th>
+                <th>Jumlah</th>
+                <th>Harga</th>
+                <th>Lokasi</th>
                 <th width="180">Aksi</th>
             </tr>
         </thead>
@@ -50,6 +53,9 @@ $pesan = $_GET['pesan'] ?? '';
                     <td><?= $no++ ?></td>
                     <td><?= htmlspecialchars($row['nama_barang']) ?></td>
                     <td><?= htmlspecialchars($row['kategori']) ?></td>
+                    <td><?= htmlspecialchars($row['jumlah']) ?></td>
+                    <td><?= number_format($row['harga']) ?></td>
+                    <td><?= htmlspecialchars($row['lokasi']) ?></td>
                     <td>
                         <a href="edit.php?id=<?= $row['id'] ?>" class="btn btn-warning btn-sm">Edit</a>
                         <a href="delete.php?id=<?= $row['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Yakin hapus?')">Hapus</a>

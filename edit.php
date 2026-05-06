@@ -17,13 +17,19 @@ if (!$data) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nama_barang = trim($_POST['nama_barang'] ?? '');
     $kategori    = trim($_POST['kategori'] ?? '');
+    $jumlah      = trim($_POST['jumlah'] ?? '');
+    $harga       = trim($_POST['harga'] ?? '');
+    $lokasi      = trim($_POST['lokasi'] ?? '');
 
     if (!empty($nama_barang) && !empty($kategori)) {
-        $stmt = $pdo->prepare("UPDATE barang SET nama_barang = :nama_barang, kategori = :kategori WHERE id = :id");
+        $stmt = $pdo->prepare("UPDATE barang SET nama_barang = :nama_barang, kategori = :kategori, jumlah = :jumlah, harga = :harga, lokasi = :lokasi WHERE id = :id");
         $stmt->execute([
             ':nama_barang' => $nama_barang,
             ':kategori'    => $kategori,
-            ':id'           => $id
+            ':jumlah'      => $jumlah,
+            ':harga'       => $harga,
+            ':lokasi'      => $lokasi,
+            ':id'          => $id
         ]);
         header("Location: index.php?pesan=edit_sukses");
         exit;
@@ -57,6 +63,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="mb-3">
             <label class="form-label">Kategori</label>
             <input type="text" name="kategori" class="form-control" value="<?= htmlspecialchars($data['kategori']) ?>" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Jumlah</label>
+            <input type="number" name="jumlah" class="form-control" value="<?= htmlspecialchars($data['jumlah']) ?>" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Harga</label>
+            <input type="number" name="harga" class="form-control" value="<?= htmlspecialchars($data['harga']) ?>" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Lokasi</label>
+            <input type="text" name="lokasi" class="form-control" value="<?= htmlspecialchars($data['lokasi']) ?>" required>
         </div>
         <button type="submit" class="btn btn-primary">Update</button>
         <a href="index.php" class="btn btn-secondary">Kembali</a>
